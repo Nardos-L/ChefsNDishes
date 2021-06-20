@@ -1,0 +1,35 @@
+@{
+    ViewData["Title"] = "Home Page";
+}
+@* @using ChefsNDishes.Models *@
+@model Dish
+<div class="mb-4">
+    <a class="navbar-brand "  asp-controller="Home" asp-action="Index">Chefs</a> |
+    <a  class="navbar-brand"  asp-controller="Dishes" asp-action="ViewDishes">Dishes</a>
+    <a  class="float-right"  asp-controller="Dishes" asp-action="AddDish">Add a Dish</a>
+</div>
+<h3>Yum, take a look at our tasty dishes!</h3>
+<table class="table table-striped table-hover table-bordered">
+    <thead>
+        <tr class="text-center">
+            <th >Name</th>
+            <th>Chef</th>
+            <th>Tastiness</th>
+            <th>Calories</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            foreach (var dish in @ViewBag.AllDishes)
+            {
+                <tr>
+                    <td>@dish.Name</td>
+                    <td>@dish.Cook.FullName()</td>
+                    <td>@dish.Tastiness</td>
+                    <td>@dish.Calories</td>
+                </tr>
+            }
+        }
+        
+    </tbody>
+</table>

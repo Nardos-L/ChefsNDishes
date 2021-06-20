@@ -1,0 +1,34 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@model Chef
+<div class="mb-4">
+    <a class="navbar-brand " asp-controller="Home" asp-action="Index">Chefs</a>|
+    <a class="navbar-brand" asp-controller="Dishes" asp-action="ViewDishes">Dishes</a>
+    <a class="float-right" asp-controller="Home" asp-action="AddChef">Add a Chef</a>
+</div>
+
+<h3 class="mb-3">Check out our roster of Chefs!</h3>
+<table class="table table-striped table-hover table-bordered">
+    <thead>
+        <tr class="text-center">
+            <th >Name</th>
+            <th>Age</th>
+            <th># of Dishes</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            foreach (Chef chef in ViewBag.AllChefs)
+            {
+                <tr>
+                    <td>@chef.FullName()</td>
+                    <td>@chef.Age</td>
+                    <td>@chef.Dishes.Count</td>
+                </tr>
+            }
+        }
+        
+    </tbody>
+</table>
