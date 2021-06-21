@@ -34,22 +34,25 @@ namespace ChefsNDishes.Controllers
         [HttpPost("/Create/chef")]
         public IActionResult CreateChef(Chef newChef)
         {
-            if (ModelState.IsValid == false)
-            {
-                if(newChef.Birthday >= DateTime.Today)
-                {
-                    ModelState.AddModelError("Birthday","Date of birth must be a past date");
-                }
+            Console.WriteLine($"date time{DateTime.Today.Year - newChef.Birthday.Year}");
 
-                // var todayYear = DateTime.Today.Year;
-                // var chefYear = newChef.Birthday.Year;
-                if (DateTime.Today.Year - newChef.Birthday.Year < 18)
-                {
-                    ModelState.AddModelError("Birthday","Chef must be 18 year old or older");
-                }
-                return View("NewChef");
+            if(newChef.Birthday >= DateTime.Today)
+            {
+                ModelState.AddModelError("Birthday","Date of birth must be a past date");
             }
 
+            if ((DateTime.Today.Year - newChef.Birthday.Year) < 18)
+            {
+                
+                ModelState.AddModelError("Birthday","Chef must be 18 year old or older");
+            }
+
+            if (ModelState.IsValid == false)
+            {
+                return View("NewChef");
+            }
+            
+            
             db.Chefs.Add(newChef);
             db.SaveChanges();
             return RedirectToAction("Index");
